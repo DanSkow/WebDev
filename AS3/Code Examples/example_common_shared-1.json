@@ -1,0 +1,152 @@
+{
+    "Common": {
+        "class": "Tenant",
+        "Shared": {
+            "class": "Application",
+            "template": "shared",
+            "AS3_http": {
+                "class": "HTTP_Profile",
+                "viaRequest": "preserve",
+                "viaResponse": "preserve",
+                "xForwardedFor": false
+            },
+            "AS3_http_encrypt-cookie": {
+                "class": "HTTP_Profile",
+                "proxyType": "reverse",
+                "encryptCookies": [
+                    "BIGipServer"
+                ],
+                "cookiePassphrase": {
+                    "ciphertext": "AAAAAAAAAAA",
+                    "protected": "AAAAAAAAAAA=",
+                    "miniJWE": true
+                },
+                "viaRequest": "preserve",
+                "viaResponse": "preserve",
+                "xForwardedFor": false
+            },
+            "AS3_http_x-forwarded": {
+                "class": "HTTP_Profile",
+                "viaRequest": "preserve",
+                "viaResponse": "preserve",
+                "xForwardedFor": true
+            },
+            "AS3_http_x-forwarded_redirect": {
+                "class": "HTTP_Profile",
+                "viaRequest": "preserve",
+                "viaResponse": "preserve",
+                "xForwardedFor": true,
+                "rewriteRedirects": "all"
+            },
+            "AS3_http_redirect": {
+                "class": "HTTP_Profile",
+                "viaRequest": "preserve",
+                "viaResponse": "preserve",
+                "xForwardedFor": false,
+                "rewriteRedirects": "all"
+            },
+            "AS3_http_encrypt-cookie_x-forwarded": {
+                "class": "HTTP_Profile",
+                "proxyType": "reverse",
+                "encryptCookies": [
+                    "BIGipServer"
+                ],
+                "cookiePassphrase": {
+                    "ciphertext": "AAAAAAAAAAA",
+                    "protected": "AAAAAAAAAAA=",
+                    "miniJWE": true
+                },
+                "viaRequest": "preserve",
+                "viaResponse": "preserve",
+                "xForwardedFor": false
+            },
+            "AS3_http_encrypt-cookie_redirect": {
+                "class": "HTTP_Profile",
+                "proxyType": "reverse",
+                "encryptCookies": [
+                    "BIGipServer"
+                ],
+                "cookiePassphrase": {
+                    "ciphertext": "AAAAAAAAAAA",
+                    "protected": "AAAAAAAAAAA=",
+                    "miniJWE": true
+                },
+                "viaRequest": "preserve",
+                "viaResponse": "preserve",
+                "xForwardedFor": false,
+                "rewriteRedirects": "all"
+            },
+            "AS3_persistance_cookie-hash": {
+                "class": "Persist",
+                "persistenceMethod": "cookie",
+                "cookieMethod": "hash",
+                "cookieName": "BIGipServer",
+                "duration": 180,
+                "httpOnly": false,
+                "secure": true,
+                "encrypt": true
+            },
+            "AS3_Wildcard_NPE": {
+                "class": "TLS_Server",
+                "certificates": [{
+                "certificate": "as3_cert_wildcard-1",
+                "matchToSNI": "*.example1.com" },{
+                "certificate": "as3_cert_wildcard-2",
+                "matchToSNI": "*.example2.com" }]           
+            },
+            "AS3_Wildcard_NPE_TLSv1.2": {
+                "class": "TLS_Server",
+                "cipherGroup": {
+                    "use": "AS3_RSA_Secure_Cipher_Group" },
+                "tls1_0Enabled": false,
+                "tls1_1Enabled": false,
+                "tls1_3Enabled": true,
+                "certificates": [{
+                "certificate": "as3_cert_wildcard-1",
+                "matchToSNI": "*.example1.com" },{
+                "certificate": "as3_cert_wildcard-2",
+                "matchToSNI": "*.example2.com" }]           
+            },
+            "AS3_RSA_Secure_Cipher_Group": {
+                "class": "Cipher_Group",
+                "allowCipherRules": [{
+                    "use": "AS3_RSA_Secure_Ciphers"},{
+                    "use": "AS3_TLS1.3_Secure_Ciphers" }]
+            },
+            "AS3_RSA_Secure_Ciphers": {
+                "class": "Cipher_Rule",
+                "cipherSuites": ["ECDHE-RSA-AES256-GCM-SHA384","ECDHE-RSA-AES256-CBC-SHA","ECDHE-RSA-AES256-SHA384","ECDHE-RSA-AES128-GCM-SHA256","ECDHE-RSA-AES128-CBC-SHA","ECDHE-RSA-AES128-SHA256"]
+            },
+            "AS3_TLS1.3_Secure_Ciphers": {
+                "class": "Cipher_Rule",
+                "cipherSuites": ["TLS13-AES128-GCM-SHA256","TLS13-AES256-GCM-SHA384"]
+            },
+            "AS3_Intermediate_Digicert":{
+                "class": "Certificate",
+                "certificate": "-----BEGIN CERTIFICATE-----\nAAAAAAAAA\n-----END CERTIFICATE-----"            
+        },
+            "as3_cert_wildcard-1":{
+                "class": "Certificate",
+                "certificate": "-----BEGIN CERTIFICATE-----\nAAAAAAAAA\n-----END CERTIFICATE-----"            
+                "privateKey": "-----BEGIN PRIVATE KEY-----\nAAAAAAAAA\n-----END PRIVATE KEY-----",
+                "certificate": "-----BEGIN CERTIFICATE-----\nAAAAAAAAA\n-----END CERTIFICATE-----"            
+            },
+            "as3_cert_wildcard-2": {
+                "class": "Certificate",
+                "certificate": "-----BEGIN CERTIFICATE-----\nAAAAAAAAA\n-----END CERTIFICATE-----"            
+                "privateKey": "-----BEGIN PRIVATE KEY-----\nAAAAAAAAA\n-----END PRIVATE KEY-----",
+                "certificate": "-----BEGIN CERTIFICATE-----\nAAAAAAAAA\n-----END CERTIFICATE-----"            
+            }
+        }
+    },
+    "class": "ADC",
+    "schemaVersion": "3.0.0",
+    "id": "urn:uuid:33045210-3ab8-4636-9b2a-c98d22ab915d",
+    "label": "",
+    "controls": {
+        "class": "Controls",
+        "userAgent": "vscode-f5/3.1.0",
+        "archiveTimestamp": "2021-09-29T14:41:17.105Z"
+    },
+    "updateMode": "selective"
+}

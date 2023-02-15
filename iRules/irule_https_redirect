@@ -1,0 +1,6 @@
+when HTTP_REQUEST {
+ switch -glob [string tolower [HTTP::host]] {
+ *.* {
+ HTTP::redirect https://[HTTP::host][HTTP::uri] }
+ }
+}

@@ -1,0 +1,18 @@
+when HTTP_REQUEST {
+ if { [active_members [LB::server pool]] < 1 } {
+  HTTP::respond 503 content {
+<title>Site Unavailable</title>
+
+<article>
+        <p><b>This site is currently unavailable & undergoing maintenance</b></p>
+        <p>The system will be unavailable from 12:00 pm Friday, September 16, to 8:00 am on Monday, September 19th for maintenance.</p>
+        <p>Thank you for your patience!</p>
+    </div>
+    <br />
+    <br />
+    </div>
+</article>
+
+}
+}
+}

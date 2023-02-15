@@ -1,0 +1,12 @@
+# Create addr_list_mgmt_ips Address List locally on devices with Management IPs 
+
+bash
+
+# Remove FW rules.
+$(tmsh modify /security firewall management-ip-rules rules delete {all})
+
+# Add FW rule f5_mgmt_to_f5_mgmt. 
+$(tmsh modify /security firewall management-ip-rules rules add { f5_mgmt_to_f5_mgmt { action accept destination { address-lists add { /Common/addr_list_mgmt_ips } } ip-protocol any log no place-before first source { address-lists add { /Common/addr_list_mgmt_ips } ports none } status enabled uuid auto-generate } })
+
+# Add Deny rule.
+$(tmsh modify /security firewall management-ip-rules rules add { deny_all { action drop destination { address-lists add { /Common/addr_list_mgmt_ips } } ip-protocol any log yes place-after last source { addresses add { any } ports none } status enabled uuid auto-generate } })
